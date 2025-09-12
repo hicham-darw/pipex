@@ -36,6 +36,7 @@ char	*get_path_command(char *cmd, char **env)
 					free_vec(paths);
 					return (tmp_path);
 				}
+				free(tmp_path);
 				j++;
 			}
 			if(!paths[j])
