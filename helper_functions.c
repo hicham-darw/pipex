@@ -26,4 +26,3 @@ void	dup_and_close(int fd_file, int fd)
 	dup2(fd_file, fd);
 	close(fd_file);
 }
-
