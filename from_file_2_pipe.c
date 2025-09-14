@@ -27,11 +27,11 @@ void	from_file_2_pipe(int fds[], char **av, char *args[], char **env)
 {
 	char	**cmd;
 	char	*pathname;
-	int	fd;
+	int		fd;
 
 	if (!av || !env || !fds)
 		exit_by_error(perror);
-	close(fds[0]); /// reading end... closed;
+	close(fds[0]);
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 		exit_by_error(perror);
@@ -40,7 +40,7 @@ void	from_file_2_pipe(int fds[], char **av, char *args[], char **env)
 	if (!cmd)
 		exit_by_error(perror);
 	pathname = get_pathname_execve(cmd[0], env);
-	if(!pathname)
+	if (!pathname)
 		exit_by_error(perror);
 	fill_args_execve(cmd, args);
 	if (fd < 0)
@@ -49,6 +49,5 @@ void	from_file_2_pipe(int fds[], char **av, char *args[], char **env)
 	execve(pathname, args, env);
 	free_vec(cmd);
 	free(pathname);
-	printf("OK!\n");
 	exit(EXIT_SUCCESS);
 }
