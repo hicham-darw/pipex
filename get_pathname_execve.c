@@ -14,11 +14,29 @@ void	free_vec(char **vec)
 	vec = NULL;
 }
 
+char	*find_pathname(char **paths, char *cmd)
+{
+	char	*pathname;
+
+	if (!paths || !*paths || !cmd)
+		return (NULL);
+	while (*paths)
+	{
+		pathname = ft_multi_join(3, *paths, "/", cmd);
+		if (!pathname)
+			return (NULL);
+		if (access(pathname, X_OK) == 0)
+			return (pathname);
+		paths++;
+	}
+	return (NULL);
+}
+
 char	*get_pathname_execve(char *cmd, char **env)
 {
 	char	**paths;
-	char	*tmp_path;
-	int	i, j;
+	char	*pathname;
+	int		i;
 
 	if (!cmd || !env)
 		return (NULL);
@@ -28,24 +46,15 @@ char	*get_pathname_execve(char *cmd, char **env)
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 		{
 			paths = ft_split((env[i] + 5), ':');
-			j = 0;
-			while(paths[j])
-			{
-				tmp_path = ft_multi_join(3, paths[j], "/",cmd);
-				if(access(tmp_path, X_OK) == 0)
-				{
-					free_vec(paths);
-					return (tmp_path);
-				}
-				free(tmp_path);
-				j++;
-			}
-			if(!paths[j])
+			pathname = find_pathname(paths, cmd);
+			if (!pathname)
 			{
 				free_vec(paths);
-				printf("ERROR: %s\n", strerror(errno));
+				perror("Error: ");
 				return (NULL);
 			}
+			free_vec(paths);
+			return (pathname);
 		}
 		i++;
 	}
