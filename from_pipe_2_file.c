@@ -5,11 +5,11 @@
 void	exit_by_error(void (*f)(const char *));
 char	*get_pathname_execve(char *cmd, char **env);
 
-void	from_pipe_2_file(int fds[],char **av, char *args[], char **env)
+void	from_pipe_2_file(int fds[], char **av, char *args[], char **env)
 {
 	char	**cmd;
 	char	*pathname;
-	int	fd;
+	int		fd;
 
 	if (!env || !fds || !av)
 		exit_by_error(perror);
