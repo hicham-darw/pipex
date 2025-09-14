@@ -1,9 +1,4 @@
-#include "libft.h"
-#include <stdio.h>
-#include <fcntl.h>
-
-void	exit_by_error(void (*f)(const char *));
-char	*get_pathname_execve(char *cmd, char **env);
+#include "libpipex.h"
 
 void	from_pipe_2_file(int fds[], char **av, char *args[], char **env)
 {
@@ -12,13 +7,13 @@ void	from_pipe_2_file(int fds[], char **av, char *args[], char **env)
 	int		fd;
 
 	if (!env || !fds || !av)
-		exit_by_error(perror);
+		exit(EXIT_FAILURE);
 	close(fds[1]);
 	dup2(fds[0], STDIN_FILENO);
 	close(fds[0]);
 	fd = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
-		exit_by_error(perror);
+		perror_and_exit(perror, "open failed");
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	cmd = ft_split(av[3], ' ');

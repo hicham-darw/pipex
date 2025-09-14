@@ -1,20 +1,6 @@
-#include "libft.h"
-#include <errno.h>
-#include <stdio.h>
-#include <string.h>
+#include "libpipex.h"
 
-void	free_vec(char **vec)
-{
-	int	i;
-
-	i = 0;
-	while (vec[i])
-		ft_memdel((void *)&vec[i++]);
-	free(vec);
-	vec = NULL;
-}
-
-char	*find_pathname(char **paths, char *cmd)
+static char	*find_pathname(char **paths, char *cmd)
 {
 	char	*pathname;
 
@@ -49,11 +35,11 @@ char	*get_pathname_execve(char *cmd, char **env)
 			pathname = find_pathname(paths, cmd);
 			if (!pathname)
 			{
-				free_vec(paths);
-				perror("Error: ");
+				ft_delvector(paths);
+				perror("Error");
 				return (NULL);
 			}
-			free_vec(paths);
+			ft_delvector(paths);
 			return (pathname);
 		}
 		i++;
