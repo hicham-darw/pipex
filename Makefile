@@ -1,6 +1,6 @@
 CC= gcc
 CFLAGS=-Wall -Wextra -Werror
-SRCS= from_file_2_pipe.c from_pipe_2_file.c get_pathname_execve.c \
+SRCS= write_to_pipe.c write_to_file.c get_pathname_execve.c \
 	helper_functions.c
 
 OBJS= $(patsubst %.c, %.o, $(SRCS))
@@ -25,7 +25,6 @@ clean:
 	rm -rf $(OBJS) pipex.o
 fclean: clean
 	make -C libft fclean
-	rm -rf $(LIB) $(LIBFT)/libft.a
+	rm -rf $(LIB) $(LIBFT)/libft.a $(NAME)
 re: fclean all
-
 .PHONY: all clean re fclean main
