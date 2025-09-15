@@ -8,10 +8,10 @@
 # include <string.h>
 # include <errno.h>
 
-void	from_file_2_pipe(int fds[], char **av, char *args[], char **env);
-void	from_pipe_2_file(int fds[], char **av, char *args[], char **env);
+void	write_to_pipe(int fds[], char **av, char **env);
+void	write_to_file(int fds[], char **av, char **env);
 char	*get_pathname_execve(char *cmd, char **env);
-int		fork_failed(void (*perr)(const char *));
+int		fork_failed();
 void	perror_and_exit(void (*perr)(const char *), const char *s);
 void	fill_args_execve(char **cmd, char *args[]);
 void	dup_and_close(int old_fd, int new_fd);
