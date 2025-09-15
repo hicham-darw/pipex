@@ -36,7 +36,6 @@ char	*get_pathname_execve(char *cmd, char **env)
 			if (!pathname)
 			{
 				ft_delvector(paths);
-				perror("Error");
 				return (NULL);
 			}
 			ft_delvector(paths);
