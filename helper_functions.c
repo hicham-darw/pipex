@@ -20,7 +20,7 @@ void	execve_fails(char *pathname, char **args)
 	exit(1);
 }
 
-void	put_command_not_found_fd(char *err_msg, char *cmd)
+void	put_command_not_found(char *err_msg, char *cmd)
 {
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);
