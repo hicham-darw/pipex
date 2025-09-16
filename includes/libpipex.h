@@ -16,6 +16,6 @@ void	fill_args_execve(char **cmd, char *args[]);
 void	dup2_and_close(int old_fd, int new_fd);
 void	execve_fails(char *pathname, char **args);
 int		put_usage(void);
-void	put_command_not_found_fd(char *err_msg, char *cmd);
+void	put_command_not_found(char *err_msg, char *cmd);
 
 #endif
