@@ -10,9 +10,14 @@ static char	*find_pathname(char **paths, char *cmd)
 	{
 		pathname = ft_multi_join(3, *paths, "/", cmd);
 		if (!pathname)
-			return (NULL);
+		{
+			perror("multijoin");
+			exit(1);
+		}
 		if (access(pathname, X_OK) == 0)
 			return (pathname);
+		else
+			free(pathname);
 		paths++;
 	}
 	return (NULL);
